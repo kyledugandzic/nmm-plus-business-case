@@ -174,39 +174,112 @@
   }
   .hero-prepared strong { color: rgba(255,255,255,0.6); }
 
-  /* ===== SECTIONS ===== */
+  /* ===== SECTIONS (Hockey Rink Ice) ===== */
   .section {
     padding: 80px 24px;
     position: relative;
-    background-color: #edf3f8;
+    background-color: #e8eef5;
     background-image:
-      linear-gradient(rgba(75,156,211,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(75,156,211,0.04) 1px, transparent 1px),
-      radial-gradient(ellipse at 50% 0%, rgba(75,156,211,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse at 50% 100%, rgba(75,156,211,0.06) 0%, transparent 70%);
-    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%;
+      radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%),
+      radial-gradient(ellipse at 20% 20%, rgba(200,220,240,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(200,220,240,0.3) 0%, transparent 50%);
+    overflow: hidden;
   }
+  /* Board edges */
   .section::before {
     content: '';
     position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    height: 100%;
-    border-left: 2px solid rgba(75,156,211,0.06);
-    border-right: 2px solid rgba(75,156,211,0.06);
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 3px solid rgba(75,156,211,0.12);
+    border-radius: 40px;
     pointer-events: none;
+    z-index: 0;
   }
+  /* Center ice circle */
   .section::after {
     content: '';
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
-    border: 2px solid rgba(75,156,211,0.05);
+    border: 3px solid rgba(75,156,211,0.1);
     pointer-events: none;
+    z-index: 0;
+  }
+  /* Rink markings container */
+  .section .rink-lines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Red center line */
+  .section .rink-lines::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 8px; right: 8px;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, rgba(200,35,51,0.12) 0px, rgba(200,35,51,0.12) 20px, transparent 20px, transparent 30px);
+    transform: translateY(-50%);
+  }
+  /* Blue lines */
+  .section .rink-lines::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      linear-gradient(to bottom, transparent calc(30% - 2px), rgba(75,156,211,0.1) calc(30% - 2px), rgba(75,156,211,0.1) calc(30% + 2px), transparent calc(30% + 2px)),
+      linear-gradient(to bottom, transparent calc(70% - 2px), rgba(75,156,211,0.1) calc(70% - 2px), rgba(75,156,211,0.1) calc(70% + 2px), transparent calc(70% + 2px));
+  }
+  /* Face-off dots and circles - using box-shadow on center circle */
+  .section.rink-full::after {
+    box-shadow:
+      -280px -120px 0 -106px rgba(200,35,51,0.08),
+      280px -120px 0 -106px rgba(200,35,51,0.08),
+      -280px 120px 0 -106px rgba(200,35,51,0.08),
+      280px 120px 0 -106px rgba(200,35,51,0.08),
+      -280px -120px 0 0px rgba(200,35,51,0.06),
+      280px -120px 0 0px rgba(200,35,51,0.06),
+      -280px 120px 0 0px rgba(200,35,51,0.06),
+      280px 120px 0 0px rgba(200,35,51,0.06);
+  }
+  /* Center dot */
+  .section .rink-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(75,156,211,0.12);
+    z-index: 0;
+    pointer-events: none;
+  }
+  /* Face-off dots */
+  .section .rink-dot::before,
+  .section .rink-dot::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(200,35,51,0.1);
+  }
+  .section .rink-dot::before {
+    top: -140px; left: -200px;
+    box-shadow: 400px 0 0 0 rgba(200,35,51,0.1), 0 280px 0 0 rgba(200,35,51,0.1), 400px 280px 0 0 rgba(200,35,51,0.1);
+  }
+  /* Ice scratches/texture */
+  .section .ice-texture {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      repeating-linear-gradient(85deg, transparent, transparent 40px, rgba(255,255,255,0.15) 40px, rgba(255,255,255,0.15) 41px),
+      repeating-linear-gradient(95deg, transparent, transparent 60px, rgba(200,220,240,0.08) 60px, rgba(200,220,240,0.08) 61px);
+    pointer-events: none;
+    z-index: 0;
   }
   .section-inner {
     max-width: 1000px;
@@ -218,8 +291,12 @@
     background: var(--dark);
     background-image: none;
     color: var(--text-on-dark);
+    overflow: hidden;
   }
   .section.dark::before, .section.dark::after { display: none; }
+  .section.dark .rink-lines,
+  .section.dark .rink-dot,
+  .section.dark .ice-texture { display: none; }
   .section.dark h2 { color: white; }
   .section.dark .section-subtitle { color: rgba(255,255,255,0.5); }
   .section.dark .stat-label { color: rgba(255,255,255,0.5); }
@@ -1003,7 +1080,10 @@
 <div class="puck-divider"></div>
 
 <!-- ===== SECTION 1: YOUR BUSINESS TODAY ===== -->
-<section class="section" id="overview">
+<section class="section rink-full" id="overview">
+  <div class="ice-texture"></div>
+  <div class="rink-lines"></div>
+  <div class="rink-dot"></div>
   <div class="section-inner">
     <div class="animate-in">
       <div class="section-label">Overview</div>
@@ -1166,7 +1246,10 @@
 <div class="puck-divider"></div>
 
 <!-- ===== SECTION 3: LIVE EVENTS ===== -->
-<section class="section" id="events">
+<section class="section rink-full" id="events">
+  <div class="ice-texture"></div>
+  <div class="rink-lines"></div>
+  <div class="rink-dot"></div>
   <div class="section-inner">
     <div class="animate-in">
       <div class="event-banner">
@@ -1348,7 +1431,10 @@
 </div>
 
 <!-- ===== SECTION 5: INTERNATIONAL ===== -->
-<section class="section" id="international">
+<section class="section rink-full" id="international">
+  <div class="ice-texture"></div>
+  <div class="rink-lines"></div>
+  <div class="rink-dot"></div>
   <div class="section-inner">
     <div class="animate-in">
       <div class="section-label">International</div>
@@ -1430,7 +1516,10 @@
 </section>
 
 <!-- ===== SECTION 7: ROI ===== -->
-<section class="section" id="roi">
+<section class="section rink-full" id="roi">
+  <div class="ice-texture"></div>
+  <div class="rink-lines"></div>
+  <div class="rink-dot"></div>
   <div class="section-inner">
     <div class="animate-in">
       <div class="section-label">Return on Investment</div>
