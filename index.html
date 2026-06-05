@@ -267,16 +267,92 @@
     background: var(--off-white);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 16px;
+    padding: 12px 16px 16px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
   }
   .brand-chip:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
   }
+  .brand-chip-img {
+    width: 100%;
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
   .brand-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
   .brand-type { font-size: 12px; color: var(--text-light); }
+
+  /* ===== HERO LOGO ===== */
+  .hero-logo {
+    max-width: 220px;
+    margin: 0 auto 28px;
+    filter: brightness(1.1);
+  }
+
+  /* ===== PRODUCT SHOWCASE ===== */
+  .showcase-strip {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    background: var(--dark);
+    padding: 0;
+  }
+  .showcase-item {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .showcase-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .showcase-item:hover img { transform: scale(1.08); }
+  .showcase-item .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .showcase-item:hover .overlay { opacity: 1; }
+
+  /* ===== EVENT BANNER ===== */
+  .event-banner {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-lg);
+  }
+  .event-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ===== SECTION BRAND LOGO ===== */
+  .section-brand-logo {
+    height: 40px;
+    margin-bottom: 16px;
+    filter: brightness(0) invert(0);
+  }
+  .dark .section-brand-logo {
+    filter: brightness(0) invert(1);
+  }
 
   /* ===== CHART CONTAINERS ===== */
   .chart-row {
@@ -728,6 +804,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-content">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/letterkenny-logo.png?v=1758225984&width=400" alt="Letterkenny" class="hero-logo">
     <div class="hero-badge">Shopify Plus Business Case</div>
     <h1>Shopify Plus for<br>New Metric Media</h1>
     <p class="subtitle">Accelerating the 360 entertainment commerce vision with enterprise-grade infrastructure.</p>
@@ -769,12 +846,30 @@
     </div>
 
     <div class="brand-grid animate-in">
-      <div class="brand-chip"><div class="brand-name">Letterkenny</div><div class="brand-type">TV Series + Merch</div></div>
-      <div class="brand-chip"><div class="brand-name">Shoresy</div><div class="brand-type">TV Series + Merch</div></div>
-      <div class="brand-chip"><div class="brand-name">Shoresy Classic</div><div class="brand-type">Live Hockey Events</div></div>
-      <div class="brand-chip"><div class="brand-name">Guns N' Bruno</div><div class="brand-type">Whiskey Brand</div></div>
-      <div class="brand-chip"><div class="brand-name">Legends of the North</div><div class="brand-type">Video Game</div></div>
-      <div class="brand-chip"><div class="brand-name">Content Streaming</div><div class="brand-type">Vimeo + Planned</div></div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/image_5.png?v=1759540919&width=300" alt="Letterkenny" class="brand-chip-img">
+        <div class="brand-name">Letterkenny</div><div class="brand-type">TV Series + Merch</div>
+      </div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/Rectangle_7194_2.png?v=1759382576&width=300" alt="Shoresy" class="brand-chip-img">
+        <div class="brand-name">Shoresy</div><div class="brand-type">TV Series + Merch</div>
+      </div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_C2025_WebsiteBanner_v1.webp?v=1763228887&width=300" alt="Shoresy Classic" class="brand-chip-img">
+        <div class="brand-name">Shoresy Classic</div><div class="brand-type">Live Hockey Events</div>
+      </div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/Thumbnail5.png?v=1759521711&width=300" alt="Guns N' Bruno" class="brand-chip-img">
+        <div class="brand-name">Guns N' Bruno</div><div class="brand-type">Whiskey Brand</div>
+      </div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_LOTN_KeyArt_WebsiteBanner_V3.webp?v=1749657552&width=300" alt="Legends of the North" class="brand-chip-img">
+        <div class="brand-name">Legends of the North</div><div class="brand-type">Video Game</div>
+      </div>
+      <div class="brand-chip">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/preview_images/5716d6f4a5944a3d8a3c6e6ff9dac5d8.thumbnail.0000000000.jpg?v=1764168686&width=300" alt="Streaming" class="brand-chip-img">
+        <div class="brand-name">Content Streaming</div><div class="brand-type">Vimeo + Planned</div>
+      </div>
     </div>
 
     <div class="highlight-box animate-in">
@@ -783,6 +878,34 @@
     </div>
   </div>
 </section>
+
+<!-- ===== PRODUCT SHOWCASE STRIP ===== -->
+<div class="showcase-strip">
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/BULLDOGS-HOME-CAPTAIN-FRONT-NEW1A.png?v=1763331429&width=500" alt="Bulldogs Jersey">
+    <div class="overlay">Bulldogs Jersey</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESYHoodie-PropertySBNEW_001A.png?v=1763331429&width=500" alt="Shoresy Hoodie">
+    <div class="overlay">Shoresy Hoodie</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_PRO_HOCKEY_STICK.png?v=1769704486&width=500" alt="Pro Hockey Stick">
+    <div class="overlay">Pro Hockey Stick</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/products/hard_no_new_graphic_man.png?v=1712581752&width=500" alt="Hard No T-Shirt">
+    <div class="overlay">Hard No T-Shirt</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/BlackHat.png?v=1779816313&width=500" alt="Shoresy Hat">
+    <div class="overlay">Shoresy Hat</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/LK-GNB-WhiskyGlassSet-001.png?v=1702997537&width=500" alt="Guns N' Bruno Glasses">
+    <div class="overlay">Guns N' Bruno</div>
+  </div>
+</div>
 
 <!-- ===== SECTION 2: THE OPPORTUNITY ===== -->
 <section class="section dark" id="opportunity">
@@ -859,6 +982,12 @@
 <section class="section" id="events">
   <div class="section-inner">
     <div class="animate-in">
+      <div class="event-banner">
+        <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_C2025_WebsiteBanner_v1.webp?v=1763228887&width=1200" alt="Shoresy Classic 2025">
+      </div>
+    </div>
+    <div class="animate-in">
+      <img src="https://www.letterkenny.tv/cdn/shop/files/updated-shoresy-logo.png?v=1759798809&width=180" alt="Shoresy" class="section-brand-logo">
       <div class="section-label">Live Events</div>
       <h2>Shoresy Classic — Bring Tickets Home</h2>
       <p class="section-subtitle">You're selling out NHL arenas. But every ticket sale goes through a third party, and you lose all customer data and attribution.</p>
@@ -1003,6 +1132,34 @@
   </div>
 </section>
 
+<!-- Shoresy merch banner -->
+<div class="showcase-strip" style="background:#0a0a1a;">
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_KEYART_S4_SHOPIFY_MAIN_NOTAG_BANNER.webp-2.jpg?v=1763249260&width=600" alt="Shoresy Season 4">
+    <div class="showcase-label">Season 4</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/Rectangle_7181.png?v=1760776877&width=600" alt="All Shoresy Merch">
+    <div class="showcase-label">Shop All</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/BULLDOGS-HOME-CAPTAIN-FRONT-NEW1A.png?v=1763331429&width=400" alt="Bulldogs Jersey">
+    <div class="showcase-label">Jerseys</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESYHoodie-PropertySBNEW_001A.png?v=1763331429&width=400" alt="Shoresy Hoodie">
+    <div class="showcase-label">Apparel</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/SHORESY_PRO_HOCKEY_STICK.png?v=1769704486&width=400" alt="Hockey Stick">
+    <div class="showcase-label">Gear</div>
+  </div>
+  <div class="showcase-item">
+    <img src="https://www.letterkenny.tv/cdn/shop/files/LK-GNB-WhiskyGlassSet-001.png?v=1702997537&width=400" alt="Whisky Glasses">
+    <div class="showcase-label">Lifestyle</div>
+  </div>
+</div>
+
 <!-- ===== SECTION 5: INTERNATIONAL ===== -->
 <section class="section" id="international">
   <div class="section-inner">
@@ -1034,6 +1191,7 @@
 <section class="section dark" id="audience">
   <div class="section-inner">
     <div class="animate-in">
+      <img src="https://www.letterkenny.tv/cdn/shop/files/letterkenny-logo.png?v=1758225984&width=140" alt="Letterkenny" class="section-brand-logo">
       <div class="section-label">Audience & Growth</div>
       <h2>Massive Audience, Untapped Potential</h2>
       <p class="section-subtitle">Nearly a million followers across platforms with minimal commerce infrastructure to monetize them.</p>
