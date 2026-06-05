@@ -178,15 +178,48 @@
   .section {
     padding: 80px 24px;
     position: relative;
+    background-color: #edf3f8;
+    background-image:
+      linear-gradient(rgba(75,156,211,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(75,156,211,0.04) 1px, transparent 1px),
+      radial-gradient(ellipse at 50% 0%, rgba(75,156,211,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse at 50% 100%, rgba(75,156,211,0.06) 0%, transparent 70%);
+    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 100%;
+    border-left: 2px solid rgba(75,156,211,0.06);
+    border-right: 2px solid rgba(75,156,211,0.06);
+    pointer-events: none;
+  }
+  .section::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid rgba(75,156,211,0.05);
+    pointer-events: none;
   }
   .section-inner {
     max-width: 1000px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
   .section.dark {
     background: var(--dark);
+    background-image: none;
     color: var(--text-on-dark);
   }
+  .section.dark::before, .section.dark::after { display: none; }
   .section.dark h2 { color: white; }
   .section.dark .section-subtitle { color: rgba(255,255,255,0.5); }
   .section.dark .stat-label { color: rgba(255,255,255,0.5); }
@@ -281,26 +314,28 @@
 
   /* ===== PUCK DIVIDER ===== */
   @keyframes puckSlide {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100vw); }
+    0% { transform: translateX(-80px) rotate(0deg); }
+    100% { transform: translateX(calc(100vw + 80px)) rotate(720deg); }
   }
   .puck-divider {
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--brand-blue), var(--brand-ice), var(--brand-blue), transparent);
+    height: 4px;
+    background: linear-gradient(90deg, transparent 5%, rgba(75,156,211,0.15) 20%, rgba(75,156,211,0.3) 50%, rgba(75,156,211,0.15) 80%, transparent 95%);
     position: relative;
     overflow: hidden;
   }
   .puck-divider::after {
     content: '';
     position: absolute;
-    top: -2px;
+    top: 50%;
     left: 0;
-    width: 40px;
-    height: 7px;
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 0 12px var(--brand-ice), 0 0 24px rgba(75,156,211,0.4);
-    animation: puckSlide 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    width: 80px;
+    height: 80px;
+    margin-top: -40px;
+    background: radial-gradient(circle, #1a1a1a 0%, #111 40%, #0a0a0a 60%, #222 80%, #111 100%);
+    border-radius: 50%;
+    border: 3px solid #333;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.6), 0 0 30px rgba(0,0,0,0.3);
+    animation: puckSlide 3.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
   }
 
   /* ===== SCALE-IN ANIMATION ===== */
@@ -494,6 +529,40 @@
   }
   .dark .section-brand-logo {
     filter: brightness(0) invert(1);
+  }
+
+  /* ===== PUCK CHART ===== */
+  .puck-chart {
+    background: radial-gradient(circle at 50% 50%, #1a1d24 0%, #131926 40%, #0e1420 100%) !important;
+    border: 2px solid #2a2d35 !important;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  .puck-chart::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,0.01) 0deg 2deg, transparent 2deg 10deg);
+    pointer-events: none;
+    border-radius: var(--radius);
+  }
+  .puck-wrapper {
+    position: relative;
+  }
+  .puck-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 58%;
+    height: 58%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0a0d14 0%, #111520 50%, #0e1219 100%);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* ===== CHART CONTAINERS ===== */
@@ -1064,9 +1133,9 @@
     </div>
 
     <div class="chart-row animate-in">
-      <div class="chart-card">
+      <div class="chart-card puck-chart">
         <h3>Revenue Attribution</h3>
-        <div class="chart-wrapper">
+        <div class="chart-wrapper puck-wrapper">
           <canvas id="revenueChart"></canvas>
         </div>
       </div>
@@ -1570,9 +1639,11 @@ if (revenueCtx) {
       labels: ['Online Store ($2.78M)', 'Shop App ($42K)', 'Draft Orders ($4.9K)', 'Social ($798)'],
       datasets: [{
         data: [2780000, 42000, 4900, 798],
-        backgroundColor: ['#0a1628', '#1a6fb5', '#4B9CD3', '#7ec8e3'],
-        borderWidth: 0,
-        hoverOffset: 8
+        backgroundColor: ['#1a1a1a', '#2a2a2a', '#3d3d3d', '#555555'],
+        borderWidth: 3,
+        borderColor: ['#4B9CD3', '#1a6fb5', '#7ec8e3', '#5ba3d9'],
+        hoverBackgroundColor: ['#4B9CD3', '#1a6fb5', '#7ec8e3', '#5ba3d9'],
+        hoverOffset: 12
       }]
     },
     options: {
